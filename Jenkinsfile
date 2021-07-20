@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     echo 'Image Name is ...'
-                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                    env.IMAGE_NAME = "$BUILD_NUMBER"
                 }
             }
         }

@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     echo 'deploying docker image...'
-                    sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f -'
+                    sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f -'  // I have installed this 'envsubst' inside the jenkins soo that I can call the Variables from Jenkinsfile to the Kuberenetes manifists 
                     sh 'envsubst < kubernetes/service.yaml | kubectl apply -f -'
                 }
             }

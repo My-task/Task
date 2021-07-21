@@ -22,7 +22,7 @@
     </dependency>
   </dependencies>
   <build>
-        <plugins>
+      <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -36,8 +36,6 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
-  <build>
     <finalName>SampleWebApp</finalName>
   </build>
 </project>

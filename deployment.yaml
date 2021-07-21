@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment //Here created the Kubernetes Deployment 
 metadata:
-  name: $APP_NAME
+  name: $APP_NAME //This $APP_NAME variable is comming from the Variables that is defined inside the Jenkinsfile
   labels:
     app: $APP_NAME
 spec:
@@ -15,7 +15,7 @@ spec:
         app: $APP_NAME
     spec:
       imagePullSecrets:
-        - name: aws-registry-key
+        - name: aws-registry-key // Here I have created the aws-registry-key as a secretes inside the Kubernetes that will authenticate the Kubernetes with the ECR to fetch the secretes
       containers:
         - name: $APP_NAME
           image: $DOCKER_REPO:$IMAGE_NAME

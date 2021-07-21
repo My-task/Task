@@ -1,4 +1,4 @@
-From tomcat:8.0.51-jre8-alpine
+From tomcat:8.0
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 

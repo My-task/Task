@@ -1,25 +1,25 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent any
+    agent any // I'm using the Single Jenkins server Not Master Slave setup If I Setup the Master Slave then I need to pass the Worker Node Name here
     tools {
         maven 'maven-3.8.1'   // This name (maven-3.8.1) I have defined in the Plugin Section in the Jenkins Global Tool Configuration 
     }
     environment {
-        DOCKER_REPO_SERVER = '907856714876.dkr.ecr.us-east-1.amazonaws.com' // This is the Private Docker Registry URL of the ECR
-        DOCKER_REPO = "${DOCKER_REPO_SERVER}/my-task"  // Here I'm calling the Private Docker Registry URL of the ECR and concatenating with the Repository Name 
+        DOCKER_REPO_SERVER = '907856714876.dkr.ecr.us-east-1.amazonaws.com' // This is the Private Docker Registry URL of the ECR	
+        DOCKER_REPO = "${DOCKER_REPO_SERVER}/my-task"  // Here I'm calling the Private Docker Registry URL of the ECR and concatenating with the Repository Name of the ECR repository
     }
     stages {
          stage('increment version') {
             steps {
                 script {
-                    echo 'incrementing app version.'
-			// This is the maven Command that is use to Increment the pom.xml verion 
+                    echo 'Incrementing app version.'
+			// This is the maven Command that is use to Increment the pom.xml version 
                     sh 'mvn build-helper:parse-version versions:set \
                         -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
                         versions:commit'    
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'  // This is the Syntax of the groovy script that is use to read the pom.xml file and finding the <version></version> tag
-                    def version = matcher[0][1]
+                    def version = matcher[0][1] 
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER" // Here I'm creating the Image Name with the version and Build Number
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                script {
                    echo "building the application..."
-                   sh 'mvn clean package' // This command I'm using to create the war artifactory This will delete the Old war and creates new One 
+                   sh 'mvn clean package' // This command I'm using to create the war artifactory This will delete the Old war and creates new One everytime when the Pipeline run
                }
             }
         }

@@ -6,7 +6,7 @@ pipeline {
         maven 'maven-3.8.1'   // This name (maven-3.8.1) I have defined in the Plugin Section in the Jenkins Global Tool Configuration 
     }
     environment {
-        DOCKER_REPO_SERVER = '907856714876.dkr.ecr.us-east-1.amazonaws.com' // This is the Private Docker Registry URL of the ECR	
+        DOCKER_REPO_SERVER = '907856714876.dkr.ecr.us-west-1.amazonaws.com' // This is the Private Docker Registry URL of the ECR	
         DOCKER_REPO = "${DOCKER_REPO_SERVER}/my-task"  // Here I'm calling the Private Docker Registry URL of the ECR and concatenating with the Repository Name of the ECR repository
     }
     stages {
